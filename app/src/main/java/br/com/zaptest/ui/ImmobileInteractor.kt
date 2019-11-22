@@ -18,6 +18,7 @@ class ImmobileInteractor : ImmobileContract.Interactor {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 response?.apply {
+                    callback.onImmobilesSuccess()
                     filterImmobileType(this.subList(0, 100), callback)
                 }
             }, {

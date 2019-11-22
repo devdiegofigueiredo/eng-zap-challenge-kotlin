@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ZapTest</string>
+    <string name="zap">Zap</string>
+    <string name="viva_real">Viva Real</string>
 </resources>

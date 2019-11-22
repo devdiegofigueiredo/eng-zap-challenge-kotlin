@@ -13,11 +13,15 @@ class ImmobilePresenter(
     }
 
     override fun onZapImmobilesSuccess(immobiles: List<Immobile>) {
-        view.setupImmobiles(immobiles)
+        view.setupZapImmobiles(immobiles)
     }
 
     override fun onVivaRealImmobilesSuccess(immobiles: List<Immobile>) {
+        view.setupVivaRealImmobiles(immobiles)
+    }
 
+    override fun onImmobilesSuccess() {
+        view.setupImmobilesSlider()
     }
 
     override fun onImmobilesError(message: String) {
