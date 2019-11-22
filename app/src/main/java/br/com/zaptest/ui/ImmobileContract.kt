@@ -10,7 +10,8 @@ interface ImmobileContract {
 
     interface Presenter {
         interface ImmobilesCallback {
-            fun onImmobilesSuccess(immobiles: List<Immobile>)
+            fun onVivaRealImmobilesSuccess(immobiles: List<Immobile>)
+            fun onZapImmobilesSuccess(immobiles: List<Immobile>)
             fun onImmobilesError(message: String)
         }
 

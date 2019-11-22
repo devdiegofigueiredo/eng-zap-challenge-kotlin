@@ -12,8 +12,12 @@ class ImmobilePresenter(
         interactor.fetchImmobiles(this)
     }
 
-    override fun onImmobilesSuccess(immobiles: List<Immobile>) {
+    override fun onZapImmobilesSuccess(immobiles: List<Immobile>) {
         view.setupImmobiles(immobiles)
+    }
+
+    override fun onVivaRealImmobilesSuccess(immobiles: List<Immobile>) {
+
     }
 
     override fun onImmobilesError(message: String) {

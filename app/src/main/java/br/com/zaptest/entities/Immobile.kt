@@ -22,7 +22,7 @@ data class Immobile(
     ) {
 
         data class GeoLocation(val precision: String, val location: Location) {
-            data class Location(val lat: Double, val long: Double)
+            data class Location(val lat: Double, val lon: Double)
         }
     }
 
@@ -30,6 +30,8 @@ data class Immobile(
         val yearlyIptu: String,
         val price: String,
         val businessType: String,
-        val monthlyCondoFee: String
+        val monthlyCondoFee: String,
+        val period: String,
+        val rentalTotalPrice: String
     )
 }
