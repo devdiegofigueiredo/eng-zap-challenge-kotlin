@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import br.com.zaptest.R
 import br.com.zaptest.entities.Immobile
+import kotlinx.android.synthetic.main.activity_immobile.*
 
 class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
 
@@ -19,6 +20,8 @@ class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_immobile)
+
+        setupToolbar()
 
         val interactor = ImmobileInteractor()
         presenter = ImmobilePresenter(this, interactor)
@@ -33,6 +36,7 @@ class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
         val sectionsPagerAdapter = SectionsPagerAdapter(immobilesFragments, this, supportFragmentManager)
         val viewPager: androidx.viewpager.widget.ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
+        tabs.setupWithViewPager(viewPager)
     }
 
     override fun setupZapImmobiles(immobiles: List<Immobile>) {
@@ -51,6 +55,11 @@ class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
 
     private fun onLoadMoreImmobilies(position: Int) {
         presenter.loadMoreImmobiles(position)
+    }
+
+    private fun setupToolbar() {
+        toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(toolbar)
     }
 
     class SectionsPagerAdapter(
