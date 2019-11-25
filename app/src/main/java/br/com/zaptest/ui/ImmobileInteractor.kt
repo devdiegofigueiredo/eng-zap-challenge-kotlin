@@ -117,7 +117,13 @@ class ImmobileInteractor : ImmobileContract.Interactor {
 
     private fun isVivaRealConditions(immobile: Immobile): Boolean {
         immobile.pricingInfos.monthlyCondoFee?.apply {
-            this.toInt().takeIf { it == 0 }?.apply { return false }
+            this.toInt().takeIf { it > 0 }?.apply {
+                if (this.toDouble() < (immobile.pricingInfos.price.toDouble() / 100.0f) * 30) {
+                    return false
+                }
+            } ?: kotlin.run {
+                return false
+            }
         }
 
         return immobile.address.geoLocation.location.lat < 0 &&
