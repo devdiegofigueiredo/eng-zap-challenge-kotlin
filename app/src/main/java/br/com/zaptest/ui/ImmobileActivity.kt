@@ -11,6 +11,7 @@ import br.com.zaptest.entities.Immobile
 
 class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
 
+    private lateinit var presenter: ImmobilePresenter
     private lateinit var vivaRealImmobiles: List<Immobile>
     private lateinit var zapImmobiles: List<Immobile>
     private lateinit var immobilesFragments: MutableList<ImmobilesFragment>
@@ -20,14 +21,14 @@ class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
         setContentView(R.layout.activity_immobile)
 
         val interactor = ImmobileInteractor()
-        val presenter = ImmobilePresenter(this, interactor)
+        presenter = ImmobilePresenter(this, interactor)
         presenter.fetchImmobiles()
     }
 
     override fun setupImmobilesSlider() {
         immobilesFragments = mutableListOf()
-        immobilesFragments.add(ImmobilesFragment())
-        immobilesFragments.add(ImmobilesFragment())
+        immobilesFragments.add(ImmobilesFragment(0, this::onLoadMoreImmobilies))
+        immobilesFragments.add(ImmobilesFragment(1, this::onLoadMoreImmobilies))
 
         val sectionsPagerAdapter = SectionsPagerAdapter(immobilesFragments, this, supportFragmentManager)
         val viewPager: androidx.viewpager.widget.ViewPager = findViewById(R.id.view_pager)
@@ -42,6 +43,14 @@ class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
     override fun setupVivaRealImmobiles(immobiles: List<Immobile>) {
         vivaRealImmobiles = immobiles
         immobilesFragments[1].addImmobiles(immobiles)
+    }
+
+    override fun addMoreImmoobilies(position: Int, immobilies: List<Immobile>) {
+        immobilesFragments[position].addImmobiles(immobilies)
+    }
+
+    private fun onLoadMoreImmobilies(position: Int) {
+        presenter.loadMoreImmobiles(position)
     }
 
     class SectionsPagerAdapter(

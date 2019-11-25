@@ -5,16 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zaptest.R
 import br.com.zaptest.entities.Immobile
 import com.squareup.picasso.Picasso
+import kotlin.reflect.KFunction0
 
-class ImmobileAdapter :
+class ImmobileAdapter(val loadMoreImobiles: KFunction0<Unit>) :
     RecyclerView.Adapter<ImmobileAdapter.ViewHolder>() {
 
     private val immobiles = mutableListOf<Immobile>()
+    private var isLoading = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.immobile_item, parent, false))
@@ -24,10 +25,16 @@ class ImmobileAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.value.text = immobiles[position].pricingInfos.price
         Picasso.get().load(immobiles[position].images.first())
+
+        immobiles.size.takeIf { position == it - 5 && position > 0 }?.apply {
+            loadMoreImobiles()
+            isLoading = true
+        }
     }
 
     fun immobiles(newImmobiles: List<Immobile>) {
         immobiles.addAll(newImmobiles)
+        isLoading = false
         notifyDataSetChanged()
     }
 

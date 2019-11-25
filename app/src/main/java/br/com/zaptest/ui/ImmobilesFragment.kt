@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.zaptest.R
 import br.com.zaptest.entities.Immobile
 import kotlinx.android.synthetic.main.fragment_zap_immobiles.*
+import kotlin.reflect.KFunction1
 
-class ImmobilesFragment : Fragment() {
+class ImmobilesFragment(private val position: Int, private val loadMoreImmobiles: KFunction1<Int, Unit>) : Fragment() {
 
     private lateinit var adapter: ImmobileAdapter
 
@@ -23,12 +24,16 @@ class ImmobilesFragment : Fragment() {
     }
 
     private fun setupImmobiles() {
-        adapter = ImmobileAdapter()
+        adapter = ImmobileAdapter(this::onLoadMoreImmobiles)
         immobile_list.layoutManager = LinearLayoutManager(activity)
         immobile_list.adapter = adapter
     }
 
     fun addImmobiles(newImmobiles: List<Immobile>) {
-        adapter.immobiles(newImmobiles)
+        immobile_list.post { adapter.immobiles(newImmobiles) }
+    }
+
+    private fun onLoadMoreImmobiles() {
+        loadMoreImmobiles(position)
     }
 }

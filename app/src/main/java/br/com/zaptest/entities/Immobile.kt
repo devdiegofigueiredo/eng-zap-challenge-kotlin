@@ -30,7 +30,7 @@ data class Immobile(
         val yearlyIptu: String,
         val price: String,
         val businessType: String,
-        val monthlyCondoFee: String,
+        val monthlyCondoFee: String?,
         val period: String,
         val rentalTotalPrice: String
     )
