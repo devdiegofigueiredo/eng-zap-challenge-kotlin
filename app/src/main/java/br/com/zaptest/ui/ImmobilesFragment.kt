@@ -24,11 +24,10 @@ class ImmobilesFragment(private val position: Int, private val loadMoreImmobiles
     }
 
     private fun setupImmobiles() {
-        activity?.apply {
-            adapter = ImmobileAdapter(this@ImmobilesFragment::onLoadMoreImmobiles, this)
-            immobile_list.layoutManager = LinearLayoutManager(activity)
-            immobile_list.adapter = adapter
-        }
+        adapter = ImmobileAdapter(this@ImmobilesFragment::onLoadMoreImmobiles, activity!!)
+        immobile_list.layoutManager = LinearLayoutManager(activity)
+        immobile_list.adapter = adapter
+
     }
 
     fun addImmobiles(newImmobiles: List<Immobile>) {
