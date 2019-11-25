@@ -2,4 +2,9 @@
     <string name="app_name">ZapTest</string>
     <string name="zap">Zap</string>
     <string name="viva_real">Viva Real</string>
+    <string name="immobile_for_sale">Imóvel para Venda</string>
+    <string name="immobile_for_rental">Imóvel para Aluguel</string>
+    <string name="money_symbol">R$ </string>
+    <string name="uninformed_neighborhood">Bairro não informado</string>
+    <string name="by_month">/mês</string>
 </resources>
