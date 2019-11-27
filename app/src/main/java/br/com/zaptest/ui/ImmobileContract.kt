@@ -26,8 +26,7 @@ interface ImmobileContract {
         }
 
         interface LoadMoreimmobilesCallback {
-            fun onLoadMoreImmobilesSuccess(position: Int, immobilies: List<Immobile>)
-            fun onLoadMoreImmobilesError()
+            fun onLoadMoreImmobiles(position: Int, immobilies: List<Immobile>)
         }
 
         fun fetchImmobiles()

@@ -39,12 +39,8 @@ class ImmobilePresenter(
         interactor.onDestroy()
     }
 
-    override fun onLoadMoreImmobilesSuccess(position: Int, immobilies: List<Immobile>) {
+    override fun onLoadMoreImmobiles(position: Int, immobilies: List<Immobile>) {
         view.addMoreImmoobilies(position, immobilies)
-    }
-
-    override fun onLoadMoreImmobilesError() {
-
     }
 
     override fun loadMoreImmobiles(position: Int) {

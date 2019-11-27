@@ -41,7 +41,7 @@ class ImmobileInteractor : ImmobileContract.Interactor {
 
             if (filteredImmobiles.size == paginationLimit) {
                 lastZapImmobileIndex = index
-                callback.onLoadMoreImmobilesSuccess(position, filteredImmobiles)
+                callback.onLoadMoreImmobiles(position, filteredImmobiles)
                 return
             }
 
@@ -58,7 +58,7 @@ class ImmobileInteractor : ImmobileContract.Interactor {
 
             if (filteredImmobiles.size == paginationLimit) {
                 lastVivaRealImmobileIndex = index
-                callback.onLoadMoreImmobilesSuccess(position, filteredImmobiles)
+                callback.onLoadMoreImmobiles(position, filteredImmobiles)
                 return
             }
 
