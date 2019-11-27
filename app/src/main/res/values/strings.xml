@@ -4,7 +4,11 @@
     <string name="viva_real">Viva Real</string>
     <string name="immobile_for_sale">Imóvel para Venda</string>
     <string name="immobile_for_rental">Imóvel para Aluguel</string>
-    <string name="money_symbol">R$ </string>
+    <string name="money_symbol">R$</string>
     <string name="uninformed_neighborhood">Bairro não informado</string>
     <string name="by_month">/mês</string>
+    <string name="uninformed_city">Cidade não informada</string>
+    <string name="condominium_value">Valor do condomínio: R$</string>
+    <string name="created_at">Criado em:</string>
+    <string name="location">Localizacão</string>
 </resources>

@@ -1,14 +1,17 @@
 package br.com.zaptest.ui
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zaptest.R
 import br.com.zaptest.entities.Immobile
+import br.com.zaptest.ui.detail.ImmobileDetailActivity
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 import kotlin.reflect.KFunction0
@@ -43,7 +46,8 @@ class ImmobileAdapter(val loadMoreImobiles: KFunction0<Unit>, private val contex
         immobile.pricingInfos.businessType.takeIf { it == "RENTAL" }?.apply {
             holder.status.text = context.getString(R.string.immobile_for_rental)
             holder.value.text = context.getString(R.string.money_symbol)
-                .plus(String.format("%.2f", immobile.pricingInfos.price.toDouble())).plus(context.getString(R.string.by_month))
+                .plus(String.format("%.2f", immobile.pricingInfos.price.toDouble()))
+                .plus(context.getString(R.string.by_month))
         }
 
         holder.size.text = immobile.usableAreas.plus("m²")
@@ -54,6 +58,12 @@ class ImmobileAdapter(val loadMoreImobiles: KFunction0<Unit>, private val contex
         immobiles.size.takeIf { position == it - 5 && position > 0 }?.apply {
             loadMoreImobiles()
             isLoading = true
+        }
+
+        holder.mainContent.setOnClickListener {
+            val intent = Intent(context, ImmobileDetailActivity::class.java)
+            intent.putExtra(ImmobileDetailActivity.extra_immobile, immobiles[position])
+             context.startActivity(intent)
         }
     }
 
@@ -76,5 +86,6 @@ class ImmobileAdapter(val loadMoreImobiles: KFunction0<Unit>, private val contex
         val bedrooms = view.findViewById<TextView>(R.id.bedrooms)
         val restrooms = view.findViewById<TextView>(R.id.restrooms)
         val parkingSpace = view.findViewById<TextView>(R.id.parking_space)
+        val mainContent = view.findViewById<CardView>(R.id.main_content)
     }
 }
