@@ -12,7 +12,7 @@ class ImmobileInteractor : ImmobileContract.Interactor {
 
     var lastZapImmobileIndex = 0
     var lastVivaRealImmobileIndex = 0
-    private val paginationLimit = 30
+    private val paginationLimit = 20
 
     private val disposables = CompositeDisposable()
     private lateinit var immobiles: List<Immobile>
