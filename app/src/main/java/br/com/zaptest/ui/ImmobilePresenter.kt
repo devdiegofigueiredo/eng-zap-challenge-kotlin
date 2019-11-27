@@ -4,7 +4,7 @@ import br.com.zaptest.entities.Immobile
 
 class ImmobilePresenter(
     private val view: ImmobileContract.View,
-    private val interactor: ImmobileInteractor
+    private val interactor: ImmobileContract.Interactor
 ) : ImmobileContract.Presenter,
     ImmobileContract.Presenter.ImmobilesCallback,
     ImmobileContract.Presenter.LoadMoreimmobilesCallback {
