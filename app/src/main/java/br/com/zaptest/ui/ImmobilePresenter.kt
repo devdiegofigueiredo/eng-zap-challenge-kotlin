@@ -10,6 +10,7 @@ class ImmobilePresenter(
     ImmobileContract.Presenter.LoadMoreimmobilesCallback {
 
     override fun fetchImmobiles() {
+        view.hideErrorScreen()
         view.showLoading()
         interactor.fetchImmobiles(this)
     }
@@ -29,7 +30,9 @@ class ImmobilePresenter(
     }
 
     override fun onImmobilesError(message: String) {
-
+        view.hideLoading()
+        view.showErrorScreen()
+        view.displayFastMessage(message)
     }
 
     override fun onDestroy() {

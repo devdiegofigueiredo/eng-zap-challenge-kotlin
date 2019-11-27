@@ -1,14 +1,10 @@
 package br.com.zaptest.ui
 
-import android.R.color
 import android.content.Context
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -32,6 +28,8 @@ class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
         val interactor = ImmobileInteractor()
         presenter = ImmobilePresenter(this, interactor)
         presenter.fetchImmobiles()
+
+        try_again.setOnClickListener { presenter.fetchImmobiles() }
     }
 
     override fun setupImmobilesSlider() {
@@ -69,6 +67,18 @@ class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
 
     override fun showTabs() {
         tabs.visibility = View.VISIBLE
+    }
+
+    override fun showErrorScreen() {
+        error_content.visibility = View.VISIBLE
+    }
+
+    override fun hideErrorScreen() {
+        error_content.visibility = View.GONE
+    }
+
+    override fun displayFastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     private fun onLoadMoreImmobilies(position: Int) {

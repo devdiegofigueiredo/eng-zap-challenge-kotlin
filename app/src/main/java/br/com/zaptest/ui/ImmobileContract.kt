@@ -12,6 +12,9 @@ interface ImmobileContract {
         fun showLoading()
         fun hideLoading()
         fun showTabs()
+        fun showErrorScreen()
+        fun hideErrorScreen()
+        fun displayFastMessage(message: String)
     }
 
     interface Presenter {
