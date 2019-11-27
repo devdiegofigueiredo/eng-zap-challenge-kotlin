@@ -10,11 +10,14 @@ class ImmobilePresenter(
     ImmobileContract.Presenter.LoadMoreimmobilesCallback {
 
     override fun fetchImmobiles() {
+        view.showLoading()
         interactor.fetchImmobiles(this)
     }
 
     override fun onZapImmobilesSuccess(immobiles: List<Immobile>) {
         view.setupZapImmobiles(immobiles)
+        view.hideLoading()
+        view.showTabs()
     }
 
     override fun onVivaRealImmobilesSuccess(immobiles: List<Immobile>) {

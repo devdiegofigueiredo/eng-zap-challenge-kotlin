@@ -1,8 +1,14 @@
 package br.com.zaptest.ui
 
+import android.R.color
 import android.content.Context
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -51,6 +57,18 @@ class ImmobileActivity : AppCompatActivity(), ImmobileContract.View {
 
     override fun addMoreImmoobilies(position: Int, immobilies: List<Immobile>) {
         immobilesFragments[position].addImmobiles(immobilies)
+    }
+
+    override fun showLoading() {
+        loading.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        loading.visibility = View.GONE
+    }
+
+    override fun showTabs() {
+        tabs.visibility = View.VISIBLE
     }
 
     private fun onLoadMoreImmobilies(position: Int) {

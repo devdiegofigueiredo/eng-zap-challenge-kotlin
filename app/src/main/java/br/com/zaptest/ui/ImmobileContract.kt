@@ -9,6 +9,9 @@ interface ImmobileContract {
         fun setupVivaRealImmobiles(immobiles: List<Immobile>)
         fun setupImmobilesSlider()
         fun addMoreImmoobilies(position: Int, immobilies: List<Immobile>)
+        fun showLoading()
+        fun hideLoading()
+        fun showTabs()
     }
 
     interface Presenter {
