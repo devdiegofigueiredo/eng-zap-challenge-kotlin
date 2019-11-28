@@ -31,7 +31,7 @@ class ImmobileAdapter(val loadMoreImobiles: KFunction0<Unit>, private val contex
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val immobile = immobiles[position]
 
-        Picasso.get().load(immobile.images.first()).into(holder.image)
+        Picasso.get().load(immobile.images.first()).placeholder(R.drawable.placeholder) .into(holder.image)
 
         immobile.address.neighborhood.takeIf { it.isNotEmpty() }?.apply {
             holder.neighborhood.text = immobile.address.neighborhood
