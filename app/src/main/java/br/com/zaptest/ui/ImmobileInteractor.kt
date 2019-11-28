@@ -4,9 +4,12 @@ import br.com.zaptest.data.BaseService
 import br.com.zaptest.entities.Immobile
 import br.com.zaptest.ui.ImmobileContract.Presenter.ImmobilesCallback
 import br.com.zaptest.ui.ImmobileContract.Presenter.LoadMoreimmobilesCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+
 
 class ImmobileInteractor : ImmobileContract.Interactor {
 
@@ -109,16 +112,41 @@ class ImmobileInteractor : ImmobileContract.Interactor {
     }
 
     private fun isZapConditions(immobile: Immobile): Boolean {
+        val locationOne = LatLng(-23.568704, -46.693419)
+        val locationTwo = LatLng(-23.546686, -46.641146)
+
+        val latLngBounds = LatLngBounds.Builder().include(locationOne).include(locationTwo).build()
+        val immobileLocation =
+            LatLng(immobile.address.geoLocation.location.lat, immobile.address.geoLocation.location.lon)
+
+        var minimumValue = 3500
+        if (latLngBounds.contains(immobileLocation)) {
+            minimumValue = (minimumValue * (1 - 0.35)).toInt()
+        }
+
         return immobile.address.geoLocation.location.lat < 0 &&
                 immobile.address.geoLocation.location.lon < 0 &&
                 immobile.pricingInfos.businessType == "SALE" &&
-                immobile.usableAreas.toInt() > 0
+                immobile.usableAreas.toInt() > 0 &&
+                immobile.pricingInfos.price.toInt() > minimumValue
     }
 
     private fun isVivaRealConditions(immobile: Immobile): Boolean {
+        val locationOne = LatLng(-23.568704, -46.693419)
+        val locationTwo = LatLng(-23.546686, -46.641146)
+
+        val latLngBounds = LatLngBounds.Builder().include(locationOne).include(locationTwo).build()
+        val immobileLocation =
+            LatLng(immobile.address.geoLocation.location.lat, immobile.address.geoLocation.location.lon)
+
+        var maxRentalValue = 30
+        if (latLngBounds.contains(immobileLocation)) {
+            maxRentalValue = +50
+        }
+
         immobile.pricingInfos.monthlyCondoFee?.apply {
             this.toInt().takeIf { it > 0 }?.apply {
-                if (this.toDouble() < (immobile.pricingInfos.price.toDouble() / 100.0f) * 30) {
+                if (this.toDouble() < (immobile.pricingInfos.price.toDouble() / 100.0f) * maxRentalValue) {
                     return false
                 }
             } ?: kotlin.run {
