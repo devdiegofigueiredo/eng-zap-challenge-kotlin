@@ -58,7 +58,12 @@ class ImmobileDetailActivity : AppCompatActivity() {
     }
 
     private fun openMap() {
-        val uri = String.format(Locale.getDefault(), "geo:%f,%f", immobile.address.geoLocation.location.lat, immobile.address.geoLocation.location.lon)
+        val uri = String.format(
+            Locale.getDefault(),
+            "geo:%f,%f",
+            immobile.address.geoLocation.location.lat,
+            immobile.address.geoLocation.location.lon
+        )
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
         startActivity(intent)
     }
